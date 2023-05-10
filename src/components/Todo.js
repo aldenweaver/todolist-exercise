@@ -6,7 +6,7 @@ function Todo({ index, todo, markComplete, deleteOne }) {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        border: "1px solid white",
+        border: "1px solid",
         borderRadius: "5px",
         height: "100%",
     };

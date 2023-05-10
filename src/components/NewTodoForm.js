@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { Icon, IconButton } from '@mui/material';
+import { RemoveDone } from '@mui/icons-material';
 
-function NewTodoForm({ addTodo }) {
+function NewTodoForm({ addTodo, moveAllCompleted }) {
     const [formValue, setFormValue] = useState({
         content: "",
         isDone: false
@@ -18,7 +20,13 @@ function NewTodoForm({ addTodo }) {
             <input 
                 type="text"
                 value={formValue.content} 
-                onChange={(e) => {setFormValue({ ...formValue, content: e.target.value })}}></input>
+                onChange={(e) => {setFormValue({ ...formValue, content: e.target.value })}}>
+            </input>
+            <IconButton variant="contained" color="primary" onClick={moveAllCompleted}>
+                <RemoveDone color="primary">
+                </RemoveDone>
+            </IconButton>
+            
         </form>
     );
 }

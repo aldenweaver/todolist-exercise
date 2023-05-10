@@ -1,12 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import './App.css';
 import NewTodoForm from './components/NewTodoForm';
 import Todo from './components/Todo';
+import DoneTodos from './components/DoneTodosList';
 
 function App() {
   // useState() on App level to contain the Todos state
-  const[todos, setTodos] = useState([]);
+  const[todos, setTodos] = useState(
+    // Checks if any todos are in local storage
+    !localStorage.getItem("todos-list") 
+    ? []
+    : JSON.parse(localStorage.getItem("todos-list"))
+  );
+
+  const[doneTodos, setDoneTodos] = useState(
+    // Checks if any todos are in local storage
+    !localStorage.getItem("done-todos") 
+    ? []
+    : JSON.parse(localStorage.getItem("done-todos"))
+  );
+
+  useEffect(() => {
+    localStorage.setItem("todos-list", JSON.stringify(todos));
+    localStorage.setItem("done-todos", JSON.stringify(doneTodos))
+  }, [todos, doneTodos]);
 
   function addTodo(newItem) {
     setTodos([newItem, ...todos]);
@@ -26,9 +44,35 @@ function App() {
     setTodos([...todos]);
   }
 
+  function moveOneCompleted(index){
+    setDoneTodos(doneTodos.push(todos[index]));
+
+    // Start at given index & only delete one item
+    todos.splice(index, 1);
+
+    // Update state var
+    setTodos([...todos]);
+    
+  }
+
+  function moveAllCompleted() {
+    for(let i = 0; i < todos.length - 1; i++) {
+      if(todos[i].isDone) {
+        moveOneCompleted(i);
+      }
+    }
+
+    //setTodos(todos.filter((todo) => todo.isDone === false));
+  }
+
   return (
     <div className="App">
       <h1>Just Do ✅</h1>
+      <br/>
+
+      <i>What do you want to accomplish?</i>
+      <NewTodoForm addTodo={addTodo} moveAllCompleted={moveAllCompleted}/>
+
       <br/>
 
       {/* ToDos */}
@@ -39,9 +83,8 @@ function App() {
       </div>
 
       <br/>
-
-      {/* Not running the function, passing definition to form, so don't need parens/params */}
-      <NewTodoForm addTodo={addTodo}/>
+    
+      <DoneTodos doneTodos={doneTodos} deleteOne={deleteOne}></DoneTodos>
     </div>
   );
 }
