@@ -35,6 +35,9 @@ function App() {
 
     // Modifying one member of the array, so need to update array via useState/set
     setTodos([...todos]);
+
+    // Move it to completed
+    moveOneCompleted(index);
   }
 
   function deleteOne(index){
@@ -45,14 +48,14 @@ function App() {
   }
 
   function moveOneCompleted(index){
-    setDoneTodos(doneTodos.push(todos[index]));
+    doneTodos.push(todos[index]);
+    setDoneTodos(doneTodos);
 
     // Start at given index & only delete one item
     todos.splice(index, 1);
 
     // Update state var
     setTodos([...todos]);
-    
   }
 
   function moveAllCompleted() {

@@ -9,8 +9,9 @@ function DoneTodosList({ doneTodos, deleteOne }) {
     return ( 
         <Container style={containerStyle}>
             <h1>Track Record of Success</h1>
+            {console.log(doneTodos)}
             {doneTodos.map((todo, index) => {
-                return <DoneTodo key={index} todo={todo} index={index} deleteOne={deleteOne}></DoneTodo>
+                return <DoneTodo key={index} doneTodo={todo} index={index} deleteOne={deleteOne}></DoneTodo>
             })}
         </Container>
      );
