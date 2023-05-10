@@ -4,6 +4,7 @@ import './App.css';
 import NewTodoForm from './components/NewTodoForm';
 import Todo from './components/Todo';
 import DoneTodos from './components/DoneTodosList';
+import DeleteDialog from './components/DeleteDialog';
 
 function App() {
   // useState() on App level to contain the Todos state
@@ -40,11 +41,18 @@ function App() {
     moveOneCompleted(index);
   }
 
-  function deleteOne(index){
+  function deleteOneTodo(index){
     // Start at given index & only delete one item
     todos.splice(index, 1);
 
     setTodos([...todos]);
+  }
+
+  function deleteOneDone(index){
+    // Start at given index & only delete one item
+    doneTodos.splice(index, 1);
+
+    setDoneTodos([...doneTodos]);
   }
 
   function moveOneCompleted(index){
@@ -81,13 +89,13 @@ function App() {
       {/* ToDos */}
       <div>
         {todos.map((todo, index) => {
-            return <Todo key={index} todo={todo} index={index} markComplete={markComplete} deleteOne={deleteOne}></Todo>
+            return <Todo key={index} todo={todo} index={index} markComplete={markComplete} deleteOneTodo={deleteOneTodo}></Todo>
         })}
       </div>
 
       <br/>
     
-      <DoneTodos doneTodos={doneTodos} deleteOne={deleteOne}></DoneTodos>
+      <DoneTodos doneTodos={doneTodos} deleteOneDone={deleteOneDone}></DoneTodos>
     </div>
   );
 }

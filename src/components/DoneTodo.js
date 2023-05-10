@@ -1,7 +1,8 @@
 import { Button, Card, Container, Icon, IconButton, Typography } from "@mui/material";
 import { Done, Delete, Cancel } from "@mui/icons-material";
+import DeleteDialog from "./DeleteDialog";
 
-function DoneTodo({ index, doneTodo, deleteOne }) {
+function DoneTodo({ index, doneTodo, deleteOneDone }) {
     const containerStyle = {
         display: "flex",
         justifyContent: "space-between",
@@ -17,6 +18,7 @@ function DoneTodo({ index, doneTodo, deleteOne }) {
                 variant="h5">
                 {doneTodo.content}
             </Typography>
+            <DeleteDialog index={index} deleteOne={deleteOneDone}></DeleteDialog>
         </Container>
      );
 }

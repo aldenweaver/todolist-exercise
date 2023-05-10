@@ -1,7 +1,9 @@
 import { Button, Card, Container, Icon, IconButton, Typography } from "@mui/material";
 import { Done, Delete, Cancel } from "@mui/icons-material";
 
-function Todo({ index, todo, markComplete, deleteOne }) {
+import DeleteDialog from "./DeleteDialog";
+
+function Todo({ index, todo, markComplete, deleteOneTodo }) {
     const containerStyle = {
         display: "flex",
         justifyContent: "space-between",
@@ -35,12 +37,7 @@ function Todo({ index, todo, markComplete, deleteOne }) {
                 {todo.content}
             </Typography>
 
-            <IconButton 
-                onClick={() => deleteOne(index)}
-                style={{ color: "#ff5555" }}
-            >
-                <Delete></Delete>
-            </IconButton>
+            <DeleteDialog index={index} deleteOne={deleteOneTodo}></DeleteDialog>
         </Container>
      );
 }
